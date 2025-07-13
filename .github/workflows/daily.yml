@@ -18,17 +18,17 @@ on:
     # - cron: "0 12 * * *" # 19:00 VN
     # - cron: "0 13 * * *" # 20:00 VN
 
-    - cron: "30 8 * * *"
-    - cron: "32 8 * * *"
-    - cron: "34 8 * * *"
-    - cron: "36 8 * * *"
-    - cron: "38 8 * * *"
     - cron: "40 8 * * *"
     - cron: "42 8 * * *"
     - cron: "44 8 * * *"
     - cron: "46 8 * * *"
     - cron: "48 8 * * *"
-    - cron: "50 8 * * *"
+    - cron: "40 8 * * *"
+    - cron: "52 8 * * *"
+    - cron: "54 8 * * *"
+    - cron: "56 8 * * *"
+    - cron: "58 8 * * *"
+    - cron: "0 9 * * *"
   workflow_dispatch:
 
 permissions:
@@ -43,9 +43,11 @@ jobs:
 
       - name: Create and commit file
         run: |
+          export TZ=Asia/Ho_Chi_Minh
+
           TIMESTAMP=$(date '+%Y-%m-%d %H:%M')
           FILE_NAME="files/$TIMESTAMP.txt"
-          echo "Time commit: $(date -u '+%Y-%m-%d %H:%M UTC')" > "$FILE_NAME"
+          echo "Time commit (VN): $TIMESTAMP" > "$FILE_NAME"
 
           git config --global user.name "Bot Commit - Le Tien Dat"
           git config --global user.email "attn110601@gmail.com"
