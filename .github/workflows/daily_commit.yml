@@ -34,7 +34,7 @@ jobs:
             sed -i "/#Commit number: /c\#Commit number: $NEXT_COUNT" "$FILE"
           fi
 
-          git config --global user.name "Le Tien Dat"
+          git config --global user.name "Bot Commit - Le Tien Dat"
           git config --global user.email "attn110601@gmail.com"
 
           git add "$FILE"
