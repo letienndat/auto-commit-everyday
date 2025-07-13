@@ -2,33 +2,17 @@ name: Auto Commit Daily Everyday
 
 on:
   schedule:
-    # 14 commit -- 7h -> 20h VN
-    # - cron: "0 0 * * *" # 07:00 VN
-    # - cron: "0 1 * * *" # 08:00 VN
-    # - cron: "0 2 * * *" # 09:00 VN
-    # - cron: "0 3 * * *" # 10:00 VN
-    # - cron: "0 4 * * *" # 11:00 VN
-    # - cron: "0 5 * * *" # 12:00 VN
-    # - cron: "0 6 * * *" # 13:00 VN
-    # - cron: "0 7 * * *" # 14:00 VN
-    # - cron: "0 8 * * *" # 15:00 VN
-    # - cron: "0 9 * * *" # 16:00 VN
-    # - cron: "0 10 * * *" # 17:00 VN
-    # - cron: "0 11 * * *" # 18:00 VN
-    # - cron: "0 12 * * *" # 19:00 VN
-    # - cron: "0 13 * * *" # 20:00 VN
-
-    - cron: "40 8 * * *"
-    - cron: "42 8 * * *"
-    - cron: "44 8 * * *"
-    - cron: "46 8 * * *"
-    - cron: "48 8 * * *"
-    - cron: "40 8 * * *"
-    - cron: "52 8 * * *"
-    - cron: "54 8 * * *"
-    - cron: "56 8 * * *"
-    - cron: "58 8 * * *"
-    - cron: "0 9 * * *"
+    - cron: "40 8 * * *"  # 15:40 VN
+    - cron: "42 8 * * *"  # 15:42 VN
+    - cron: "44 8 * * *"  # 15:44 VN
+    - cron: "46 8 * * *"  # 15:46 VN
+    - cron: "48 8 * * *"  # 15:48 VN
+    - cron: "50 8 * * *"  # 15:50 VN
+    - cron: "52 8 * * *"  # 15:52 VN
+    - cron: "54 8 * * *"  # 15:54 VN
+    - cron: "56 8 * * *"  # 15:56 VN
+    - cron: "58 8 * * *"  # 15:58 VN
+    - cron: "0 9 * * *"   # 16:00 VN
   workflow_dispatch:
 
 permissions:
@@ -47,7 +31,7 @@ jobs:
 
           TIMESTAMP=$(date '+%Y-%m-%d %H:%M')
           FILE_NAME="files/$TIMESTAMP.txt"
-          echo "Time commit (VN): $TIMESTAMP" > "$FILE_NAME"
+          echo "Time commit (UTC+7): $TIMESTAMP" > "$FILE_NAME"
 
           git config --global user.name "Bot Commit - Le Tien Dat"
           git config --global user.email "attn110601@gmail.com"
@@ -55,3 +39,5 @@ jobs:
           git add "$FILE_NAME"
           git commit -m "Auto commit at $TIMESTAMP" || echo "Nothing to commit"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+          echo "✅ Commit at $TIMESTAMP (UTC+7)"
