@@ -11,7 +11,7 @@ on:
     - cron: "0 5 * * *" # 12:00 VN
     - cron: "0 6 * * *" # 13:00 VN
     - cron: "0 7 * * *" # 14:00 VN
-    - cron: "5 8 * * *" # 15:00 VN
+    - cron: "15 8 * * *" # 15:00 VN
     - cron: "0 9 * * *" # 16:00 VN
     - cron: "0 10 * * *" # 17:00 VN
     - cron: "0 11 * * *" # 18:00 VN
@@ -29,7 +29,7 @@ jobs:
       - name: Create and commit file to repo auto-commit-everyday
         run: |
           TIMESTAMP=$(date '+%Y-%m-%d_%H-%M')
-          FILE_NAME="$TIMESTAMP.txt"
+          FILE_NAME="files/$TIMESTAMP.txt"
           echo "Time commit: $(date -u '+%Y-%m-%d %H:%M UTC')" > "$FILE_NAME"
 
           git config --global user.name "Bot Commit - Le Tien Dat"
