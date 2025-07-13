@@ -11,7 +11,7 @@ on:
     - cron: "0 5 * * *" # 12:00 VN
     - cron: "0 6 * * *" # 13:00 VN
     - cron: "0 7 * * *" # 14:00 VN
-    - cron: "17 8 * * *" # 15:00 VN
+    - cron: "20 8 * * *" # 15:00 VN
     - cron: "0 9 * * *" # 16:00 VN
     - cron: "0 10 * * *" # 17:00 VN
     - cron: "0 11 * * *" # 18:00 VN
@@ -19,14 +19,17 @@ on:
     - cron: "0 13 * * *" # 20:00 VN
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   auto-commit:
     runs-on: ubuntu-latest
     steps:
-      - name: auto-commit-everyday
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Create and commit file to repo auto-commit-everyday
+      - name: Create and commit file
         run: |
           TIMESTAMP=$(date '+%Y-%m-%d_%H-%M')
           FILE_NAME="files/$TIMESTAMP.txt"
