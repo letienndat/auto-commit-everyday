@@ -3,20 +3,20 @@ name: Auto Commit Daily Everyday
 on:
   schedule:
     # 14 commit -- 7h -> 20h VN
-    - cron: '0 0 * * *'   # 07:00 VN
-    - cron: '0 1 * * *'   # 08:00 VN
-    - cron: '0 2 * * *'   # 09:00 VN
-    - cron: '0 3 * * *'   # 10:00 VN
-    - cron: '0 4 * * *'   # 11:00 VN
-    - cron: '0 5 * * *'   # 12:00 VN
-    - cron: '0 6 * * *'   # 13:00 VN
-    - cron: '0 7 * * *'   # 14:00 VN
-    - cron: '5 8 * * *'   # 15:00 VN
-    - cron: '0 9 * * *'   # 16:00 VN
-    - cron: '0 10 * * *'  # 17:00 VN
-    - cron: '0 11 * * *'  # 18:00 VN
-    - cron: '0 12 * * *'  # 19:00 VN
-    - cron: '0 13 * * *'  # 20:00 VN
+    - cron: "0 0 * * *" # 07:00 VN
+    - cron: "0 1 * * *" # 08:00 VN
+    - cron: "0 2 * * *" # 09:00 VN
+    - cron: "0 3 * * *" # 10:00 VN
+    - cron: "0 4 * * *" # 11:00 VN
+    - cron: "0 5 * * *" # 12:00 VN
+    - cron: "0 6 * * *" # 13:00 VN
+    - cron: "0 7 * * *" # 14:00 VN
+    - cron: "5 8 * * *" # 15:00 VN
+    - cron: "0 9 * * *" # 16:00 VN
+    - cron: "0 10 * * *" # 17:00 VN
+    - cron: "0 11 * * *" # 18:00 VN
+    - cron: "0 12 * * *" # 19:00 VN
+    - cron: "0 13 * * *" # 20:00 VN
   workflow_dispatch:
 
 jobs:
@@ -37,4 +37,4 @@ jobs:
 
           git add "$FILE_NAME"
           git commit -m "Auto commit at $TIMESTAMP" || echo "Nothing to commit"
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
