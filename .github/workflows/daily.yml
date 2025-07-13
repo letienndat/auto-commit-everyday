@@ -2,18 +2,7 @@ name: Auto Commit Daily Everyday
 
 on:
   schedule:
-    # - cron: "40 8 * * *"  # 15:40 VN
-    # - cron: "42 8 * * *"  # 15:42 VN
-    # - cron: "44 8 * * *"  # 15:44 VN
-    # - cron: "46 8 * * *"  # 15:46 VN
-    # - cron: "48 8 * * *"  # 15:48 VN
-    # - cron: "50 8 * * *"  # 15:50 VN
-    # - cron: "52 8 * * *"  # 15:52 VN
-    # - cron: "54 8 * * *"  # 15:54 VN
-    # - cron: "56 8 * * *"  # 15:56 VN
-    # - cron: "58 8 * * *"  # 15:58 VN
-    # - cron: "0 9 * * *"   # 16:00 VN
-    - cron: "*/3 * * * *"
+    - cron: "*/3 * * * *" # every 3 minutes
   workflow_dispatch:
 
 permissions:
@@ -25,6 +14,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: true
 
       - name: Create and commit file
         run: |
@@ -32,14 +24,22 @@ jobs:
 
           TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
           FILE_NAME="files/$TIMESTAMP.txt"
+          mkdir -p files
           echo "Time commit (UTC+7): $TIMESTAMP" > "$FILE_NAME"
 
           git config --global user.name "Bot Commit - Le Tien Dat"
           git config --global user.email "attn110601@gmail.com"
 
+          echo "📌 Git status BEFORE commit:"
+          git status
+
           git add "$FILE_NAME"
           git commit -m "Auto commit at $TIMESTAMP" || echo "Nothing to commit"
-          git pull --rebase
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+          echo "🔁 Pulling latest from origin/main"
+          git pull origin main --rebase || echo "⚠️ Pull failed"
+
+          echo "📤 Pushing to GitHub..."
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git || echo "⚠️ Push failed"
 
           echo "✅ Commit at $TIMESTAMP (UTC+7)"
