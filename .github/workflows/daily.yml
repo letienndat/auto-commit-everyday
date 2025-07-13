@@ -1,0 +1,40 @@
+name: Auto Commit Daily Everyday
+
+on:
+  schedule:
+    # 14 commit -- 7h -> 20h VN
+    - cron: '0 0 * * *'   # 07:00 VN
+    - cron: '0 1 * * *'   # 08:00 VN
+    - cron: '0 2 * * *'   # 09:00 VN
+    - cron: '0 3 * * *'   # 10:00 VN
+    - cron: '0 4 * * *'   # 11:00 VN
+    - cron: '0 5 * * *'   # 12:00 VN
+    - cron: '0 6 * * *'   # 13:00 VN
+    - cron: '0 7 * * *'   # 14:00 VN
+    - cron: '0 8 * * *'   # 15:00 VN
+    - cron: '0 9 * * *'   # 16:00 VN
+    - cron: '0 10 * * *'  # 17:00 VN
+    - cron: '0 11 * * *'  # 18:00 VN
+    - cron: '0 12 * * *'  # 19:00 VN
+    - cron: '0 13 * * *'  # 20:00 VN
+  workflow_dispatch:
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: auto-commit-everyday
+        uses: actions/checkout@v3
+
+      - name: Create and commit file to repo auto-commit-everyday
+        run: |
+          TIMESTAMP=$(date '+%Y-%m-%d_%H-%M')
+          FILE_NAME="$TIMESTAMP.txt"
+          echo "Time commit: $(date -u '+%Y-%m-%d %H:%M UTC')" > "$FILE_NAME"
+
+          git config --global user.name "Bot Commit - Le Tien Dat"
+          git config --global user.email "attn110601@gmail.com"
+
+          git add "$FILE_NAME"
+          git commit -m "Auto commit at $TIMESTAMP" || echo "Nothing to commit"
+          git push
