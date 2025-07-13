@@ -24,7 +24,7 @@ jobs:
           TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
           FILE="commit_number.md"
           if [ ! -f "$FILE" ]; then
-            echo "# Bot Commit - Le Tien Dat"
+            echo "# Bot Commit - Le Tien Dat" > "$FILE"
             echo "## Commit number: 1" >> "$FILE"
           else
             CURRENT_COUNT=$(grep -oP '## Commit number: \K\d+' "$FILE")
