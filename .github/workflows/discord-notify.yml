@@ -16,20 +16,25 @@ jobs:
           URL="${{ github.event.head_commit.url }}"
           TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
 
+          DESCRIPTION="**Message**: $MESSAGE
+          **Author**: $AUTHOR
+          **[View Commit]($URL)**
+          **Time**: $TIME"
+
           PAYLOAD=$(jq -n \
-            --arg username "GitHub Bot" \
-            --arg title "📦 New Commit Pushed" \
-            --arg desc "**Message**: $MESSAGE\n**Author**: $AUTHOR\n**[View Commit]($URL)**\n**Time**: $TIME" \
-            --argjson color 5814783 \
-            '{
+              --arg username "GitHub Bot" \
+              --arg title "📦 New Commit Pushed" \
+              --arg desc "$DESCRIPTION" \
+              --argjson color 5814783 \
+              '{
               username: $username,
               embeds: [{
-                title: $title,
-                description: $desc,
-                color: $color
+                  title: $title,
+                  description: $desc,
+                  color: $color
               }]
-            }')
+              }')
 
           curl -X POST -H "Content-Type: application/json" \
-            -d "$PAYLOAD" \
-            ${{ secrets.DISCORD_WEBHOOK }}
+              -d "$PAYLOAD" \
+              ${{ secrets.DISCORD_WEBHOOK }}
