@@ -42,4 +42,3 @@ jobs:
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
           echo "✅ Commit at $TIMESTAMP (UTC+7)"
-# force cron trigger Sun Jul 13 16:00:59 +07 2025
