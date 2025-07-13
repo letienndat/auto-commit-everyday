@@ -30,7 +30,7 @@ jobs:
         run: |
           export TZ=Asia/Ho_Chi_Minh
 
-          TIMESTAMP=$(date '+%Y-%m-%d %H:%M')
+          TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
           FILE_NAME="files/$TIMESTAMP.txt"
           echo "Time commit (UTC+7): $TIMESTAMP" > "$FILE_NAME"
 
@@ -39,6 +39,7 @@ jobs:
 
           git add "$FILE_NAME"
           git commit -m "Auto commit at $TIMESTAMP" || echo "Nothing to commit"
+          git pull --rebase
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
           echo "✅ Commit at $TIMESTAMP (UTC+7)"
