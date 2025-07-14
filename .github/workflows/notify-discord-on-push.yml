@@ -23,7 +23,7 @@ jobs:
 
           PAYLOAD=$(jq -n \
             --arg username "GitHub Bot" \
-            --arg title "📦 Auto Commit" \
+            --arg title "📢 New Push to Main" \
             --arg desc "$DESCRIPTION" \
             --argjson color 15844367 \
             '{
