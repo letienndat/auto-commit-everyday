@@ -1,0 +1,40 @@
+name: Notify Discord on Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notify Discord
+        run: |
+          TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+          COMMIT_URL="https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+          AUTHOR="${{ github.actor }}"
+          MESSAGE="${{ github.event.head_commit.message }}"
+          DESCRIPTION="**Message**: $MESSAGE
+          **Author**: $AUTHOR
+          **[View Commit]($COMMIT_URL)**
+          **Time**: $TIMESTAMP (UTC)"
+
+          PAYLOAD=$(jq -n \
+            --arg username "GitHub Notify Bot" \
+            --arg title "📢 New Push to Main" \
+            --arg desc "$DESCRIPTION" \
+            --argjson color 3447003 \
+            '{
+              username: $username,
+              embeds: [{
+                title: $title,
+                description: $desc,
+                color: $color
+              }]
+            }')
+
+          curl -X POST -H "Content-Type: application/json" \
+            -d "$PAYLOAD" \
+            ${{ secrets.DISCORD_WEBHOOK }}
