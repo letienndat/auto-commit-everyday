@@ -22,10 +22,10 @@ jobs:
           **Time**: $TIMESTAMP (UTC)"
 
           PAYLOAD=$(jq -n \
-            --arg username "GitHub Notify Bot" \
-            --arg title "📢 New Push to Main" \
+            --arg username "GitHub Bot" \
+            --arg title "📦 Auto Commit" \
             --arg desc "$DESCRIPTION" \
-            --argjson color 3447003 \
+            --argjson color 15844367 \
             '{
               username: $username,
               embeds: [{
