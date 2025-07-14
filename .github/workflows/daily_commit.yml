@@ -56,15 +56,15 @@ jobs:
           AUTHOR="Bot Commit - Le Tien Dat"
           MESSAGE="Auto commit at $TIMESTAMP"
           DESCRIPTION="**Message**: $MESSAGE
-            **Author**: $AUTHOR
-            **[View Commit]($COMMIT_URL)**
-            **Time**: $TIMESTAMP (UTC+7)"
+          **Author**: $AUTHOR
+          **[View Commit]($COMMIT_URL)**
+          **Time**: $TIMESTAMP (UTC+7)"
 
           PAYLOAD=$(jq -n \
             --arg username "GitHub Bot" \
             --arg title "📦 Auto Commit" \
             --arg desc "$DESCRIPTION" \
-            --argjson color 15844367 \
+            --argjson color 5814783 \
             '{
               username: $username,
               embeds: [{
