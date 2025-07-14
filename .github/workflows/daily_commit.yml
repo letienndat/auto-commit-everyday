@@ -2,7 +2,7 @@ name: Auto Commit Daily Everyday
 
 on:
   schedule:
-    - cron: "*/1 * * * *"
+    - cron: "0 * * * *"
   workflow_dispatch:
 
 permissions:
