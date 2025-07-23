@@ -23,7 +23,7 @@ jobs:
           export TZ=Asia/Ho_Chi_Minh
 
           TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
-          FILE="commit_number.md"
+          FILE="README.md"
 
           if [ ! -f "$FILE" ]; then
             echo "# Bot Commit - Le Tien Dat" > "$FILE"
