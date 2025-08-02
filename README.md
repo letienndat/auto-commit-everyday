@@ -1,2 +1,2 @@
-# Bot Commit - Le Tien Dat
+# Bot Commit
 ## Commit number: 437
